@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <title>AI Resume Builder</title>
+</head>
+<body>
+    <h1>AI Resume Builder</h1>
+    <textarea id="prompt" placeholder="Enter your skills and experience"></textarea>
+    <button onclick="generateResume()">Generate Resume</button>
+    <pre id="result"></pre>
+    <script>
+        async function generateResume() {
+            const prompt = document.getElementById('prompt').value;
+            const response = await fetch('/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt })
+            });
+            const data = await response.json();
+            document.getElementById('result').innerText = data.content;
+        }
+    </script>
+</body>
+</html>
